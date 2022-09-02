@@ -24,4 +24,7 @@ const login = (email, password) => {
 const logout = () => {
 	localStorage.removeItem('user');
 };
-export default { register, login, logout };
+const getAllCourses = () => {
+	return axios.get('http://localhost:4000/courses/all');
+};
+export default { register, login, logout, getAllCourses };

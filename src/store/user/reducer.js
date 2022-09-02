@@ -36,11 +36,10 @@ export default function (state = initialState, action) {
 		case LOGIN_SUCCESS:
 			return {
 				...state,
-				isAuth: user.successful,
-				name: user.user.name,
-				email: user.user.email,
-				token: user.result,
-				// user: payload.user,
+				isAuth: payload.user.successful,
+				name: payload.user.user.name,
+				email: payload.user.user.email,
+				token: payload.user.result,
 			};
 		case LOGIN_FAIL:
 			return {

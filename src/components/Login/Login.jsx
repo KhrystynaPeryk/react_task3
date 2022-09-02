@@ -10,7 +10,7 @@ import { labelText, placeholderText, buttonText } from '../../constants';
 const Login = () => {
 	const [loginEmail, setLoginEmail] = useState('');
 	const [loginPassword, setLoginPassword] = useState('');
-	const [loading, setLoading] = useState(false);
+	// const [loading, setLoading] = useState(false);
 	const { isAuth } = useSelector((state) => state.user);
 
 	const dispatch = useDispatch();
@@ -24,17 +24,18 @@ const Login = () => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		setLoading(true);
+		// setLoading(true);
 		if (!loginEmail || !loginPassword) {
 			alert('Fill in all the fields');
-			setLoading(false);
+			// setLoading(false);
 		} else {
 			dispatch(login(loginEmail, loginPassword))
 				.then(() => {
 					navigate('/courses');
 				})
-				.catch(() => {
-					setLoading(false);
+				.catch((e) => {
+					console.log(e);
+					// setLoading(false);
 					navigate('/error');
 				});
 		}

@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { getAllCourses } from '../../store/courses/actionCreators';
 
 import CourseCard from './components/CourseCard/CourseCard';
 import SearchBar from './components/SearchBar/SearchBar';
@@ -26,6 +28,7 @@ const Courses = () => {
 	const [filteredCourses, setFilteredCourses] = useState([]);
 
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
 	const location = useLocation();
 	const { isAuth } = useSelector((state) => state.user);
 
@@ -45,6 +48,9 @@ const Courses = () => {
 			setCourses((courses) => [...courses, courseData]);
 			setAuthorsList(authorsListConcatsNew);
 		}
+		dispatch(getAllCourses()).then((data) => {
+			console.log(data);
+		});
 	}, [location.state]);
 
 	useEffect(() => {

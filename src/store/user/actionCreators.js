@@ -25,17 +25,18 @@ export const register = (name, email, password) => (dispatch) => {
 export const login = (email, password) => (dispatch) => {
 	return AuthService.login(email, password).then(
 		(data) => {
-			dispatch({
+			return dispatch({
 				type: LOGIN_SUCCESS,
-				payload: { user: data.user },
+				// payload: { user: data.user },
+				payload: { user: data },
 			});
-			return Promise.resolve();
+			// return Promise.resolve();
 		},
 		(error) => {
-			dispatch({
+			return dispatch({
 				type: LOGIN_FAIL,
 			});
-			return Promise.reject();
+			// return Promise.reject();
 		}
 	);
 };
