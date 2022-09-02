@@ -31,6 +31,7 @@ const Courses = () => {
 
 	useEffect(() => {
 		if (location.state) {
+			console.log(location.state);
 			const newAuthorsList = location.state.courseAuthors;
 			const authorsListConcatsNew = authorsList.concat(newAuthorsList);
 			const courseData = {

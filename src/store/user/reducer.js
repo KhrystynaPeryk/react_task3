@@ -7,12 +7,19 @@ import {
 	LOGOUT,
 } from './actionTypes';
 const user = JSON.parse(localStorage.getItem('user'));
-const initialState = {
-	isAuth: false,
-	name: '',
-	email: '',
-	token: '',
-};
+const initialState = user
+	? {
+			isAuth: user.successful,
+			name: user.user.name,
+			email: user.user.email,
+			token: user.result,
+	  }
+	: {
+			isAuth: false,
+			name: '',
+			email: '',
+			token: '',
+	  };
 export default function (state = initialState, action) {
 	const { type, payload } = action;
 	switch (type) {
