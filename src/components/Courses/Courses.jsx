@@ -10,11 +10,7 @@ import Button from '../../common/Button/Button';
 
 import { v4 as uuidv4 } from 'uuid';
 
-import {
-	mockedCoursesList,
-	buttonText,
-	mockedAuthorsList,
-} from '../../constants';
+import { buttonText, mockedAuthorsList } from '../../constants';
 
 import { authorById, getAuthorsArr } from '../../helpers/authorById';
 import { dateGenerator } from '../../helpers/dateGenerator';
@@ -22,7 +18,7 @@ import { pipeDuration } from '../../helpers/pipeDuration';
 import { formatDate } from '../../helpers/dateGenerator';
 
 const Courses = () => {
-	const [courses, setCourses] = useState(mockedCoursesList);
+	const [courses, setCourses] = useState([]);
 	const [query, setQuery] = useState('');
 	const [authorsList, setAuthorsList] = useState(mockedAuthorsList);
 	const [filteredCourses, setFilteredCourses] = useState([]);
@@ -31,6 +27,7 @@ const Courses = () => {
 	const dispatch = useDispatch();
 	const location = useLocation();
 	const { isAuth } = useSelector((state) => state.user);
+	const stateCourses = useSelector((state) => state.courses.courses);
 
 	useEffect(() => {
 		if (location.state) {
@@ -48,9 +45,12 @@ const Courses = () => {
 			setCourses((courses) => [...courses, courseData]);
 			setAuthorsList(authorsListConcatsNew);
 		}
-		dispatch(getAllCourses()).then((data) => {
-			console.log(data);
-		});
+		dispatch(getAllCourses());
+		// 	.then((data) => {
+		// 	console.log(data);
+		// 	setCourses(data.payload);
+		// });
+		setCourses(stateCourses);
 	}, [location.state]);
 
 	useEffect(() => {

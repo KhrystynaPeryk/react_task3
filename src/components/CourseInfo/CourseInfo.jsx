@@ -30,7 +30,7 @@ const CourseInfo = () => {
 						</p>
 						<p>
 							<b>Authors: </b>
-							<p>{location.state.authors}</p>
+							{location.state.authors}
 						</p>
 					</div>
 				</div>
