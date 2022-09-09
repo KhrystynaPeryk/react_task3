@@ -27,7 +27,7 @@ const Courses = () => {
 	const dispatch = useDispatch();
 	const location = useLocation();
 	const { isAuth } = useSelector((state) => state.user);
-	const stateCourses = useSelector((state) => state.courses.courses);
+	// const stateCourses = useSelector((state) => state.courses.courses);
 
 	useEffect(() => {
 		if (location.state) {
@@ -43,14 +43,15 @@ const Courses = () => {
 				authors: getAuthorsArr(newAuthorsList),
 			};
 			setCourses((courses) => [...courses, courseData]);
+			console.log(courses);
 			setAuthorsList(authorsListConcatsNew);
+		} else {
+			dispatch(getAllCourses()).then((data) => {
+				setCourses(data.payload);
+			});
 		}
-		dispatch(getAllCourses());
-		// 	.then((data) => {
-		// 	console.log(data);
-		// 	setCourses(data.payload);
-		// });
-		setCourses(stateCourses);
+
+		// setCourses(stateCourses);
 	}, [location.state]);
 
 	useEffect(() => {
