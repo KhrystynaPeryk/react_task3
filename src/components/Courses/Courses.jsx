@@ -30,26 +30,25 @@ const Courses = () => {
 	// const stateCourses = useSelector((state) => state.courses.courses);
 
 	useEffect(() => {
-		if (location.state) {
-			console.log(location.state);
-			const newAuthorsList = location.state.courseAuthors;
-			const authorsListConcatsNew = authorsList.concat(newAuthorsList);
-			const courseData = {
-				id: uuidv4(),
-				title: location.state.title,
-				description: location.state.description,
-				creationDate: formatDate(new Date()),
-				duration: +location.state.duration,
-				authors: getAuthorsArr(newAuthorsList),
-			};
-			setCourses((courses) => [...courses, courseData]);
-			console.log(courses);
-			setAuthorsList(authorsListConcatsNew);
-		} else {
-			dispatch(getAllCourses()).then((data) => {
-				setCourses(data.payload);
-			});
-		}
+		dispatch(getAllCourses()).then((data) => {
+			setCourses(data.payload);
+			if (location.state) {
+				console.log(location.state);
+				const newAuthorsList = location.state.courseAuthors;
+				const authorsListConcatsNew = authorsList.concat(newAuthorsList);
+				const courseData = {
+					id: uuidv4(),
+					title: location.state.title,
+					description: location.state.description,
+					creationDate: formatDate(new Date()),
+					duration: +location.state.duration,
+					authors: getAuthorsArr(newAuthorsList),
+				};
+				setCourses((courses) => [...courses, courseData]);
+				console.log(courses);
+				setAuthorsList(authorsListConcatsNew);
+			}
+		});
 
 		// setCourses(stateCourses);
 	}, [location.state]);
