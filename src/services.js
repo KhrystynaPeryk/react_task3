@@ -27,4 +27,20 @@ const logout = () => {
 const getAllCourses = () => {
 	return axios.get('http://localhost:4000/courses/all');
 };
-export default { register, login, logout, getAllCourses };
+
+const addNewCourse = (newCourse) => {
+	return axios.post('http://localhost:4000/courses/add', newCourse);
+};
+
+const deleteCourse = (courseTobeDeleted) => {
+	return axios.delete(`http://localhost:4000/courses/${courseTobeDeleted.id}`);
+};
+
+export default {
+	register,
+	login,
+	logout,
+	getAllCourses,
+	addNewCourse,
+	deleteCourse,
+};

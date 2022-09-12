@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { saveNewCourse } from '../../store/courses/actionCreators';
 import { useNavigate } from 'react-router-dom';
 import Input from '../../common/Input/Input';
 import Button from '../../common/Button/Button';
@@ -13,6 +15,8 @@ import {
 } from '../../constants';
 
 import { pipeDuration } from '../../helpers/pipeDuration';
+import { formatDate } from '../../helpers/dateGenerator';
+import { getAuthorsArr } from '../../helpers/authorById';
 
 const CreateCourse = () => {
 	const [title, setTitle] = useState('');
@@ -23,6 +27,8 @@ const CreateCourse = () => {
 	const [courseAuthors, setcourseAuthors] = useState([]);
 
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
+
 	const findNameById = (id) => {
 		const author = authors.find((el) => el.id === id);
 		return author.name;
@@ -56,12 +62,19 @@ const CreateCourse = () => {
 		if (courseAuthors.length === 0 || !title || !description || !duration) {
 			alert('Please fill in all the fields and add course author(s)');
 		} else {
+			const courseData = {
+				id: uuidv4(),
+				title,
+				description,
+				creationDate: formatDate(new Date()),
+				duration: +duration,
+				authors: getAuthorsArr(courseAuthors),
+			};
+			dispatch(saveNewCourse(courseData));
 			navigate('/courses', {
 				state: {
-					title,
-					description,
-					duration,
 					courseAuthors,
+					courseData,
 				},
 			});
 		}

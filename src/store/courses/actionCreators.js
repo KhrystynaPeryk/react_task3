@@ -1,14 +1,39 @@
-import { GET_ALL_COURSES } from './actionTypes';
+import {
+	GET_ALL_COURSES,
+	SAVE_NEW_COURSE,
+	UPDATE_COURSE,
+	DELETE_COURSE,
+} from './actionTypes';
 import Services from '../../services';
 export const getAllCourses = () => (dispatch) => {
-	return (
-		Services.getAllCourses()
-			// .then((data) => data.json())
-			.then((res) =>
-				dispatch({
-					type: GET_ALL_COURSES,
-					payload: res.data.result,
-				})
-			)
+	return Services.getAllCourses().then((res) =>
+		dispatch({
+			type: GET_ALL_COURSES,
+			payload: res.data.result,
+		})
 	);
+};
+
+export const saveNewCourse = (newCourse) => (dispatch) => {
+	// return Services.addNewCourse(newCourse).then((res) => {
+	// 	console.log(res);
+	// 	return dispatch({
+	// 		type: SAVE_NEW_COURSE,
+	// 		payload: res,
+	// 	});
+	// });
+	console.log(newCourse);
+	return dispatch({
+		type: SAVE_NEW_COURSE,
+		payload: newCourse,
+	});
+};
+
+export const deleteCourse = (courseTobeDeleted) => (dispatch) => {
+	return Services.deleteCourse(courseTobeDeleted).then((res) => {
+		return dispatch({
+			type: DELETE_COURSE,
+			payload: res,
+		});
+	});
 };
