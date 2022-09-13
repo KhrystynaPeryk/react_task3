@@ -21,11 +21,11 @@ export const saveNewCourse = (newCourse) => (dispatch) => {
 	});
 };
 
-export const deleteCourse = (courseTobeDeleted) => (dispatch) => {
-	return Services.deleteCourse(courseTobeDeleted).then((res) => {
-		return dispatch({
-			type: DELETE_COURSE,
-			payload: res,
-		});
+export const deleteCourse = (id) => (dispatch) => {
+	// return Services.deleteCourse(courseTobeDeleted).then((res) => {
+	return dispatch({
+		type: DELETE_COURSE,
+		payload: id,
 	});
+	// });
 };

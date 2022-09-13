@@ -1,4 +1,6 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteCourse } from '../../../../store/courses/actionCreators';
 
 import { ReactComponent as TrashLogo } from '../../../../assets/trash.svg';
 import { ReactComponent as PencilLogo } from '../../../../assets/edit-pencil.svg';
@@ -21,7 +23,25 @@ const CourseCard = ({
 		whiteSpace: 'nowrap',
 	};
 
+	const dispatch = useDispatch();
 	const navigate = useNavigate();
+
+	const handleShowCourse = () => {
+		navigate(`/courses/${id}`, {
+			state: {
+				id,
+				title,
+				duration,
+				creationDate,
+				description,
+				authors,
+			},
+		});
+	};
+
+	const handleCourseDelete = (id) => {
+		dispatch(deleteCourse(id));
+	};
 
 	return (
 		<section className='container row mt-5 border border-info rounded p-3 m-1'>
@@ -47,18 +67,7 @@ const CourseCard = ({
 						style={{ marginRight: '5px' }}
 						buttonText={buttonText.courseCard}
 						type='button'
-						onClick={() =>
-							navigate(`/courses/${id}`, {
-								state: {
-									id,
-									title,
-									duration,
-									creationDate,
-									description,
-									authors,
-								},
-							})
-						}
+						onClick={handleShowCourse}
 					/>
 					<Button
 						style={{ marginRight: '5px' }}
@@ -70,6 +79,7 @@ const CourseCard = ({
 						style={{ marginRight: '5px' }}
 						buttonText={<TrashLogo></TrashLogo>}
 						type='button'
+						onClick={() => handleCourseDelete(id)}
 					/>
 				</div>
 			</div>

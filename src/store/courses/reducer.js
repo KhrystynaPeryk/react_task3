@@ -36,7 +36,7 @@ export default function (state = initialState, action) {
 				}),
 			};
 		case DELETE_COURSE:
-			const courseIdToDelete = payload.id;
+			const courseIdToDelete = payload;
 			return {
 				...state,
 				courses: state.courses.filter(
