@@ -15,14 +15,6 @@ export const getAllCourses = () => (dispatch) => {
 };
 
 export const saveNewCourse = (newCourse) => (dispatch) => {
-	// return Services.addNewCourse(newCourse).then((res) => {
-	// 	console.log(res);
-	// 	return dispatch({
-	// 		type: SAVE_NEW_COURSE,
-	// 		payload: res,
-	// 	});
-	// });
-	console.log(newCourse);
 	return dispatch({
 		type: SAVE_NEW_COURSE,
 		payload: newCourse,

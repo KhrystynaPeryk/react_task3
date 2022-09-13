@@ -35,7 +35,11 @@ const CreateCourse = () => {
 	};
 
 	const handleCreateAuthor = (addAuthor) => {
-		setAuthors((authors) => [...authors, { id: uuidv4(), name: addAuthor }]);
+		if (addAuthor !== '') {
+			setAuthors((authors) => [...authors, { id: uuidv4(), name: addAuthor }]);
+		} else {
+			alert('Please enter a name of your new author');
+		}
 	};
 
 	const handleAddAuthor = (id) => {

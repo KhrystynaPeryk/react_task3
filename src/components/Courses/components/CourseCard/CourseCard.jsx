@@ -1,4 +1,8 @@
 import React from 'react';
+
+import { ReactComponent as TrashLogo } from '../../../../assets/trash.svg';
+import { ReactComponent as PencilLogo } from '../../../../assets/edit-pencil.svg';
+
 import { useNavigate } from 'react-router-dom';
 import Button from '../../../../common/Button/Button';
 import { buttonText } from '../../../../constants';
@@ -38,22 +42,36 @@ const CourseCard = ({
 					<b>Created: </b>
 					{creationDate}
 				</p>
-				<Button
-					buttonText={buttonText.courseCard}
-					type='button'
-					onClick={() =>
-						navigate(`/courses/${id}`, {
-							state: {
-								id,
-								title,
-								duration,
-								creationDate,
-								description,
-								authors,
-							},
-						})
-					}
-				/>
+				<div className='d-flex align-items-center'>
+					<Button
+						style={{ marginRight: '5px' }}
+						buttonText={buttonText.courseCard}
+						type='button'
+						onClick={() =>
+							navigate(`/courses/${id}`, {
+								state: {
+									id,
+									title,
+									duration,
+									creationDate,
+									description,
+									authors,
+								},
+							})
+						}
+					/>
+					<Button
+						style={{ marginRight: '5px' }}
+						buttonText={<PencilLogo></PencilLogo>}
+						type='button'
+					/>
+
+					<Button
+						style={{ marginRight: '5px' }}
+						buttonText={<TrashLogo></TrashLogo>}
+						type='button'
+					/>
+				</div>
 			</div>
 		</section>
 	);
