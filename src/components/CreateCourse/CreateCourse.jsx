@@ -8,12 +8,7 @@ import Button from '../../common/Button/Button';
 
 import { v4 as uuidv4 } from 'uuid';
 
-import {
-	labelText,
-	placeholderText,
-	buttonText,
-	mockedAuthorsList,
-} from '../../constants';
+import { labelText, placeholderText, buttonText } from '../../constants';
 
 import { pipeDuration } from '../../helpers/pipeDuration';
 import { formatDate } from '../../helpers/dateGenerator';
