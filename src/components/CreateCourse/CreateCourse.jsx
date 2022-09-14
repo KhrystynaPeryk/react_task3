@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { saveNewCourse } from '../../store/courses/actionCreators';
+import { saveNewAuthor } from '../../store/authors/actionCreators';
 import { useNavigate } from 'react-router-dom';
 import Input from '../../common/Input/Input';
 import Button from '../../common/Button/Button';
@@ -17,17 +18,23 @@ import {
 import { pipeDuration } from '../../helpers/pipeDuration';
 import { formatDate } from '../../helpers/dateGenerator';
 import { getAuthorsArr } from '../../helpers/authorById';
+import { useEffect } from 'react';
 
 const CreateCourse = () => {
 	const [title, setTitle] = useState('');
 	const [description, setDescription] = useState('');
-	const [authors, setAuthors] = useState(mockedAuthorsList);
+	const [authors, setAuthors] = useState([]);
 	const [addAuthor, setAddAuthor] = useState('');
 	const [duration, setDuration] = useState(0);
 	const [courseAuthors, setcourseAuthors] = useState([]);
 
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
+	const stateAuthors = useSelector((state) => state.authors.authors);
+
+	useEffect(() => {
+		setAuthors(stateAuthors);
+	}, []);
 
 	const findNameById = (id) => {
 		const author = authors.find((el) => el.id === id);
@@ -36,7 +43,9 @@ const CreateCourse = () => {
 
 	const handleCreateAuthor = (addAuthor) => {
 		if (addAuthor !== '') {
-			setAuthors((authors) => [...authors, { id: uuidv4(), name: addAuthor }]);
+			const newAuthor = { id: uuidv4(), name: addAuthor };
+			dispatch(saveNewAuthor(newAuthor));
+			setAuthors((authors) => [...authors, newAuthor]);
 		} else {
 			alert('Please enter a name of your new author');
 		}

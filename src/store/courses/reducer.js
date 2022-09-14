@@ -17,7 +17,6 @@ export default function (state = initialState, action) {
 				courses: payload,
 			};
 		case SAVE_NEW_COURSE:
-			console.log('from save course reducer', payload);
 			return {
 				...state,
 				courses: [...state.courses, payload],

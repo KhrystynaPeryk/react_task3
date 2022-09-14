@@ -28,6 +28,10 @@ const getAllCourses = () => {
 	return axios.get('http://localhost:4000/courses/all');
 };
 
+const getAllAuthors = () => {
+	return axios.get('http://localhost:4000/authors/all');
+};
+
 const addNewCourse = (newCourse) => {
 	return axios.post('http://localhost:4000/courses/add', newCourse);
 };
@@ -43,4 +47,5 @@ export default {
 	getAllCourses,
 	addNewCourse,
 	deleteCourse,
+	getAllAuthors,
 };

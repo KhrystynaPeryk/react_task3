@@ -3,12 +3,13 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { getAllCourses } from '../../store/courses/actionCreators';
+import { getAllAuthors } from '../../store/authors/actionCreators';
 
 import CourseCard from './components/CourseCard/CourseCard';
 import SearchBar from './components/SearchBar/SearchBar';
 import Button from '../../common/Button/Button';
 
-import { buttonText, mockedAuthorsList } from '../../constants';
+import { buttonText } from '../../constants';
 
 import { authorById } from '../../helpers/authorById';
 import { dateGenerator } from '../../helpers/dateGenerator';
@@ -17,7 +18,7 @@ import { pipeDuration } from '../../helpers/pipeDuration';
 const Courses = () => {
 	const [courses, setCourses] = useState([]);
 	const [query, setQuery] = useState('');
-	const [authorsList, setAuthorsList] = useState(mockedAuthorsList);
+	const [authorsList, setAuthorsList] = useState([]);
 	const [filteredCourses, setFilteredCourses] = useState([]);
 
 	const navigate = useNavigate();
@@ -25,17 +26,17 @@ const Courses = () => {
 	const location = useLocation();
 	const { isAuth } = useSelector((state) => state.user);
 	const stateCourses = useSelector((state) => state.courses.courses);
+	const stateAuthors = useSelector((state) => state.authors.authors);
 
 	useEffect(() => {
 		if (location.state) {
-			const newAuthorsList = location.state.courseAuthors;
-			const authorsListConcatsNew = authorsList.concat(newAuthorsList);
 			setCourses((courses) => [...courses, location.state.courseData]);
-			setAuthorsList(authorsListConcatsNew);
+			setAuthorsList(authorsList.concat(location.state.courseAuthors));
 		} else {
 			dispatch(getAllCourses()).then((data) => {
 				setCourses(data.payload);
 			});
+			dispatch(getAllAuthors()).then((data) => setAuthorsList(data.payload));
 		}
 	}, []);
 
@@ -104,7 +105,7 @@ const Courses = () => {
 										description={description}
 										creationDate={dateGenerator(creationDate)}
 										duration={pipeDuration(duration)}
-										authors={authorById(authors, authorsList)}
+										authors={authorById(authors, stateAuthors)}
 									/>
 								</div>
 							);
@@ -126,7 +127,7 @@ const Courses = () => {
 										description={description}
 										creationDate={dateGenerator(creationDate)}
 										duration={pipeDuration(duration)}
-										authors={authorById(authors, authorsList)}
+										authors={authorById(authors, stateAuthors)}
 									/>
 								</div>
 							);
